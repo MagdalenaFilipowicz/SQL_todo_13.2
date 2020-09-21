@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To work</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+   
+</head>
+<body style ="margin-top: 50px;" class="ui container">
+<h1 class="ui center algined header">Tasks</h1>
+
+<table class="ui celled table">
+    <thead>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Status</th>
+    </thead>
+{% for task in tasks %}
+    <tr>
+        <td><a href="{{ url_for('todo_details', todo_id = task[0]) }}">{{ task[1] }}</a></td>
+        <td>{{ task[2] }}</td>
+        <td>{{ task[3] }}</td>
+    </tr>
+{% endfor %}
+</table>
+<div>
+    <h2> Add new task </h2>
+    <form class="ui form" method="POST" action="/">
+        {{ form.hidden_tag() }}
+        <table>
+            {% for field in form if field.widget.input_type != 'hidden' %}
+                <tr>
+                    <th>{{ field.label }} {% if field.flags.required %}*{% endif %}</th>
+                    <td>{{ field }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <input style="margin-left: 30px;"class="ui blue button" type="submit" value="Add" name="btn">
+    </form>
+</div>
+</body>
+</html>
